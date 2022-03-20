@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "messageQ.Queue",
+    "type": "java.lang.String",
+    "description": "A description for 'messageQ.Queue'"
+  },
+  {
+    "name": "messageQ.Exchange",
+    "type": "java.lang.String",
+    "description": "A description for 'messageQ.Exchange'"
+  }
+]}

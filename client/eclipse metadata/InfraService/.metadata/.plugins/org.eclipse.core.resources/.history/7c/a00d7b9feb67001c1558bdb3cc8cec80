@@ -1,0 +1,5 @@
+package com.InfraService.service;
+
+public class UserService {
+
+}

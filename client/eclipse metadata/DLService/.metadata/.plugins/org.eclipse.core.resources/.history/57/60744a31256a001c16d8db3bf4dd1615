@@ -1,0 +1,54 @@
+package com.DLService.controller;
+
+
+import com.DLService.MessageQ.MessageQueue;
+import com.DLService.advice.ErrorDetails;
+import com.DLService.model.DLInput;
+import com.DLService.portStates.ValidateInputs;
+import com.DLService.response.Message;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.SmartMessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.lang.reflect.Field;
+import java.util.Date;
+
+@SuppressWarnings("unused")
+@RestController
+@RequestMapping("/api/v1/dl")
+public class DLController  {
+	
+	@Autowired
+	RabbitTemplate template;
+	
+	@GetMapping("/InitiateConn")
+	public ResponseEntity<?> testAuthorization(@RequestBody DLInput dlInputs) {
+		String hasError = ValidateInputs.doBasicValidation(dlInputs);
+
+		if(!hasError.equals("")){
+			return ResponseEntity.ok().body(new ErrorDetails(new Date(), hasError, HttpStatus.BAD_REQUEST));
+		}
+		new MessageQueue().sendMessage(template,"Message sent from dl");
+
+		return ResponseEntity.ok().body(Message.ConnInitiated("Provisioning data sent to host"));
+
+	}
+}
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class  Response{
+	private String msg;
+}

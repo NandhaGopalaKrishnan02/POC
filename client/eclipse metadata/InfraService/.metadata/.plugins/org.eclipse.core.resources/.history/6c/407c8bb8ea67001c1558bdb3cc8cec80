@@ -1,0 +1,5 @@
+package com.InfraService.controller;
+
+public class InfraController {
+
+}

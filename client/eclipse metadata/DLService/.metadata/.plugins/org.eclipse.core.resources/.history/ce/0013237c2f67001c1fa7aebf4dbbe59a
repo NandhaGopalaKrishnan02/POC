@@ -1,0 +1,8 @@
+server:
+  port: 8083
+  
+
+messageQ:
+   Queue: "DLQueue"
+   Exchange: "ConnExchange"
+   RoutingKey: "DL_Connection"

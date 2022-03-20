@@ -1,0 +1,5 @@
+package com.DLService.config;
+
+public class MessageQConfig {
+
+}

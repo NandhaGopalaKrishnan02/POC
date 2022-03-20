@@ -1,0 +1,33 @@
+server:
+  port: 8083
+  
+
+messageQ:
+  ConnHandler:
+    Exchange: ConnHandlerExchange
+    DL:
+      Queue: DLHandlerQueue
+      RoutingKey: DLHandlerConnection
+    Infra:
+      Queue: InfraHandlerQueue
+      RoutingKey: InfraHandlerConnection
+    Service:
+      Queue: ServiceHandlerQueue
+      RoutingKey: ServiceHandlerConnection
+
+
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    publisher-confirm-type: CORRELATED
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: auto
+        retry:
+          enabled: true
+    template:
+      mandatory: true

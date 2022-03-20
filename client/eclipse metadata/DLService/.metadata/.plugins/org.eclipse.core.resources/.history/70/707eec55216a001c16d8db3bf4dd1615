@@ -1,0 +1,54 @@
+package com.DLService.MessageQ;
+
+import org.springframework.amqp.core.MessageDeliveryMode;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.UUID;
+
+public class MessageQueue {
+
+
+    @Value("${DL.messageQ.Exchange}")
+    public   String EXCHANGE;
+
+    @Value("${DL.messageQ.RoutingKey}")
+    public   String ROUTING_KEY;
+
+//    @Autowired
+//    private  RabbitTemplate template;
+
+//    @Autowired
+//    private ConfirmCallbackService confirmCallbackService;
+
+
+
+//
+//    @Autowired
+//    private RabbitTemplate.ReturnsCallback returnCallbackService;
+
+    public  void sendMessage(RabbitTemplate template,String msg){
+
+        /**
+         * Ensure that the message can be returned to the queue if it fails to send
+         * Note: yml needs to configure publisher-confirm-type: correlated
+         */
+//        System.out.println(confirmCallbackService);
+        template.setMandatory(true);
+
+        /**
+         * After the consumer confirms that the message has been received, the manual ack receipt callback is processed
+         */
+        template.setConfirmCallback(new ConfirmCallbackService());
+        template.convertAndSend(EXCHANGE, ROUTING_KEY, msg,
+//                message -> {
+//                    message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+//                    return message;
+//                },
+                new CorrelationData(UUID.randomUUID().toString()));
+    }
+
+
+}
