@@ -1,8 +1,0 @@
-server:
-  port: 8084
-  
-Infra:
-  messageQ:
-    Queue: "InfraQueue"
-    Exchange: "ConnExchange"
-    RoutingKey: "InfraConnection"

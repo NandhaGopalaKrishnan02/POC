@@ -1,9 +1,0 @@
-server:
-  port: 8085
-
-  
-service:
-  messageQ:
-    Queue: "ServiceQueue"
-    Exchange: "ConnExchange"
-    RoutingKey: "ServiceConnection"

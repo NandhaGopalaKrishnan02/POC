@@ -1,0 +1,13 @@
+service Registry
+-----------------
+/d/Learning/POC/ConnectionCreation/Testing/POC-main/Backend/Microservices/Service_Registry/"Service Discovery"/target
+
+
+ApiGateway
+----------
+/d/Learning/POC/ConnectionCreation/Testing/POC-main/Backend/Microservices/ApiGateway/apigateway/target
+
+
+AuthService
+-----------
+/d/Learning/POC/ConnectionCreation/Testing/POC-main/Backend/Microservices/Authservice/target
